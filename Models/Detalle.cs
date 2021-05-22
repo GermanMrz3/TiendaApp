@@ -13,10 +13,7 @@ namespace TiendaApp.Models
         
         public int id_producto { get; set; }
         public int cantidad { get; set; }
-        public Nullable<decimal> precio { get; set; }
+        public decimal precio { get; set; }
 
-        public virtual Producto Producto { get; set; }
-
-        public virtual Factura Factura { get; set; }
     }
 }
