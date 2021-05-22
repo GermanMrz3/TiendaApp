@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Tienda WebApi</title>
+  </head>
+  <body>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">nombre</th>
+                <th scope="col">apellido</th>
+                <th scope="col">direccion</th>
+                <th scope="col">fecha nacimiento</th>
+                <th scope="col">telefono</th>
+                <th scope="col">email</th>
+            </tr>
+        </thead>
+        <tbody id="tbClientes">
+
+        </tbody>
+
+      </table>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+      <script>
+        function fnGetClientes() {
+          const miTablaClientes = document.getElementById("tbClientes");
+            fetch('https://localhost:5001/api/listadoCliente',
+            {mode:'cors' 
+            })
+              .then((response) => {
+                  return response.json();
+
+              })
+              .then((datos) => {
+                console.log("Datos Api")
+                console.log(datos)
+
+                  datos.forEach(element => {
+
+
+                  const fila = document.createElement("tr");
+                  
+                  const colNombre = document.createElement("td");
+                  colNombre.innerHTML = element.nombre;
+
+                  const colApellido = document.createElement("td");
+                  colApellido.innerHTML = element.apellido;
+
+                  const colDirrecion = document.createElement("td");
+                  colDirrecion.innerHTML = element.direccion;
+
+                  const colFecha = document.createElement("td");
+                  colFecha.innerHTML = element.fecha_nacimiento;
+
+                  const colTelefono = document.createElement("td");
+                  colTelefono.innerHTML = element.telefono;
+
+                  const colEmail = document.createElement("td");
+                  colEmail.innerHTML = element.email;
+
+                  fila.appendChild(colNombre);
+                  fila.appendChild(colApellido);
+                  fila.appendChild(colDirrecion);
+                  fila.appendChild(colFecha);
+                  fila.appendChild(colTelefono);
+                  fila.appendChild(colEmail);
+
+                  miTablaClientes.appendChild(fila);
+
+
+                });
+              });
+        }
+        fnGetClientes();
+        
+      </script>
+    
+  </body>
+</html>

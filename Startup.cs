@@ -18,6 +18,7 @@ namespace TiendaApp
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,6 +31,20 @@ namespace TiendaApp
         {
 
             services.AddDbContext<TiendaAppContext>(opt=> opt.UseSqlServer(Configuration.GetConnectionString("TiendaDbConnection")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                    builder =>
+                        {
+                        builder.WithOrigins("*")
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                        });
+            });
+
+
+            // services.AddResponseCaching();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -47,11 +62,15 @@ namespace TiendaApp
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TiendaApp v1"));
             }
 
+
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseEndpoints(endpoints =>
             {
