@@ -17,11 +17,21 @@ namespace TiendaApp.Controllers
         }
 
         [HttpGet]
-        [Route("api/listadoFactura")]
+        [Route("api/listadoFacturas")]
         public IEnumerable<Factura> getListadoFactura()
-        {                   
-            IEnumerable<Factura> listadoFactura = _contexto.Factura;
-            return  listadoFactura;    
+        {
+            try
+            {
+                IEnumerable<Factura> listadoFactura = _contexto.Factura;
+                return listadoFactura;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
 
         }
 
