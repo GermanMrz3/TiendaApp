@@ -46,7 +46,7 @@ num_detalle int primary key IDENTITY(1,1),
 id_factura  int ,
 id_producto int,
 cantidad int, 
-2 
+precio int, 
 FOREIGN KEY (id_producto) REFERENCES Producto(id_Producto),
 FOREIGN KEY (id_factura) REFERENCES Factura(id_factura)
 )
